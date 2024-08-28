@@ -1,0 +1,23 @@
+import re
+
+# Exemplo de texto contendo URLs
+texto = """
+Aqui estão alguns URLs para teste:
+https://www.example.com
+http://example.org
+https://secure-site.org/page?param=value
+http://example.com/path/to/resource
+https://www.youtube.com/
+https://web.whatsapp.com/
+"""
+
+# Padrão para encontrar URLs HTTP e HTTPS, com suporte para caracteres especiais
+padrao_http_https = r'https?://[a-zA-Z0-9\-._~:/?#\[\]@!$&\'()*+,;%=]+'
+
+# Encontrar todas as URLs HTTP/HTTPS no texto
+urls_http_https_encontradas = re.findall(padrao_http_https, texto)
+
+# Exibir as URLs HTTP/HTTPS encontradas
+print("URLs HTTP/HTTPS encontradas:")
+for url in urls_http_https_encontradas:
+    print(url)
