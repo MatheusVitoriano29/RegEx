@@ -1,0 +1,32 @@
+import fitz  # PyMuPDF
+import re
+
+def extrair_texto_pdf(caminho_pdf):
+    texto_total = ""
+    try:
+        documento = fitz.open(caminho_pdf)
+        for pagina in documento:
+            texto_total += pagina.get_text("text") + "\n"  # Adiciona uma quebra de linha após cada página
+        documento.close()
+    except Exception as e:
+        print(f"Erro ao abrir o arquivo PDF: {e}")
+    return texto_total
+
+def encontrar_titulo(texto):
+    # Padrão para capturar exatamente 3 linhas do início
+    padrao_titulo = r'^(.+?\n){2}.+?\n'  # Captura as 3 primeiras linhas
+    match = re.search(padrao_titulo, texto, re.MULTILINE | re.DOTALL)
+    return match.group(0).strip() if match else "Título não encontrado"
+
+# Caminho para o seu arquivo PDF
+caminho_pdf = r'# Substitua pelo caminho completo do seu arquivo PDF'
+
+# Extrair texto do PDF
+texto_pdf = extrair_texto_pdf(caminho_pdf)
+
+# Encontrar o título
+titulo = encontrar_titulo(texto_pdf)
+
+# Exibir o título encontrado    
+print("Título encontrado:")
+print(titulo)
